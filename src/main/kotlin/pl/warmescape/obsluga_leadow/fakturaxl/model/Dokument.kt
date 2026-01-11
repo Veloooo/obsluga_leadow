@@ -1,0 +1,32 @@
+package pl.warmescape.obsluga_leadow.fakturaxl.model
+
+data class Dokument(
+    val apiToken: String,
+    val typFaktury: Int,
+    val typFakturPodtyp: Int,
+    val obliczajSumeWartosciFakturyWg: Int,
+    val numerFaktury: String? = null,
+    val dataWystawienia: String,
+    val dataSprzedazy: String,
+    val terminPlatnosciData: String,
+    val dataOplacenia: String? = null,
+    val kwotaOplacona: Double = 0.0,
+    val uwagi: String? = null,
+    val waluta: String,
+    val kurs: Double,
+    val rodzajPlatnosci: String,
+    val jezyk: Int,
+    val szablon: Int,
+    val imieNazwiskoWystawcy: String,
+    val imieNazwiskoOdbiorcy: String? = null,
+    val nrZamowienia: String? = null,
+    val dodatkoweUwagi: String? = null,
+    val idDzialyFirmy: Long,
+    val wyslijDokumentDoKlientaEmailem: Int,
+    val obliczajWartoscFakturyOd: Int,
+    val notatkaPrywatna: String? = null,
+    val nabywca: Nabywca,
+    val pozycje: List<FakturaPozycja>,
+    val tagi: List<String> = emptyList(),
+    val jpkV7: List<String> = emptyList()
+)

@@ -1,0 +1,1838 @@
+{
+  "result": {
+    "ID": {
+      "type": "integer",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "ID"
+    },
+    "TITLE": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Nazwa"
+    },
+    "TYPE_ID": {
+      "type": "crm_status",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "statusType": "DEAL_TYPE",
+      "title": "Typ deala"
+    },
+    "CATEGORY_ID": {
+      "type": "crm_category",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": true,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Lejek"
+    },
+    "STAGE_ID": {
+      "type": "crm_status",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "statusType": "DEAL_STAGE",
+      "title": "Etap deala"
+    },
+    "STAGE_SEMANTIC_ID": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Grupa etapu"
+    },
+    "IS_NEW": {
+      "type": "char",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Nowy deal"
+    },
+    "IS_RECURRING": {
+      "type": "char",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Powracający deal"
+    },
+    "IS_RETURN_CUSTOMER": {
+      "type": "char",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Powtarzalny deal"
+    },
+    "IS_REPEATED_APPROACH": {
+      "type": "char",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Ponowne zapytanie"
+    },
+    "PROBABILITY": {
+      "type": "integer",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Prawdopodobieństwo"
+    },
+    "CURRENCY_ID": {
+      "type": "crm_currency",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Waluta"
+    },
+    "OPPORTUNITY": {
+      "type": "double",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Razem"
+    },
+    "IS_MANUAL_OPPORTUNITY": {
+      "type": "char",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "IS_MANUAL_OPPORTUNITY"
+    },
+    "TAX_VALUE": {
+      "type": "double",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Stawka podatku"
+    },
+    "COMPANY_ID": {
+      "type": "crm_company",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Firma",
+      "settings": {
+        "parentEntityTypeId": 4
+      }
+    },
+    "CONTACT_ID": {
+      "type": "crm_contact",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "isDeprecated": true,
+      "title": "Kontakt"
+    },
+    "CONTACT_IDS": {
+      "type": "crm_contact",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": true,
+      "isDynamic": false,
+      "title": "Kontakty"
+    },
+    "QUOTE_ID": {
+      "type": "crm_quote",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Oferta",
+      "settings": {
+        "parentEntityTypeId": 7
+      }
+    },
+    "BEGINDATE": {
+      "type": "date",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Data rozpoczęcia"
+    },
+    "CLOSEDATE": {
+      "type": "date",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Data zakończenia"
+    },
+    "OPENED": {
+      "type": "char",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Dostępny dla wszystkich"
+    },
+    "CLOSED": {
+      "type": "char",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Zamknięte"
+    },
+    "COMMENTS": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Komentarz"
+    },
+    "ASSIGNED_BY_ID": {
+      "type": "user",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Osoba odpowiedzialna"
+    },
+    "CREATED_BY_ID": {
+      "type": "user",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Utworzony przez"
+    },
+    "MODIFY_BY_ID": {
+      "type": "user",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Zmodyfikowane przez"
+    },
+    "MOVED_BY_ID": {
+      "type": "user",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "MOVED_BY_ID"
+    },
+    "DATE_CREATE": {
+      "type": "datetime",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Utworzono dnia"
+    },
+    "DATE_MODIFY": {
+      "type": "datetime",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Zmodyfikowano dnia"
+    },
+    "MOVED_TIME": {
+      "type": "datetime",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "MOVED_TIME"
+    },
+    "SOURCE_ID": {
+      "type": "crm_status",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "statusType": "SOURCE",
+      "title": "Źródło"
+    },
+    "SOURCE_DESCRIPTION": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Informacja o źródle"
+    },
+    "LEAD_ID": {
+      "type": "crm_lead",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Lead",
+      "settings": {
+        "parentEntityTypeId": 1
+      }
+    },
+    "ADDITIONAL_INFO": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Dodatkowe informacje"
+    },
+    "LOCATION_ID": {
+      "type": "location",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Lokalizacja"
+    },
+    "ORIGINATOR_ID": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Źródło zewnętrzne"
+    },
+    "ORIGIN_ID": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Identyfikator pozycji w źródle danych"
+    },
+    "UTM_SOURCE": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "System reklamowy"
+    },
+    "UTM_MEDIUM": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Medium"
+    },
+    "UTM_CAMPAIGN": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "UTM kampanii reklamowej"
+    },
+    "UTM_CONTENT": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Materiały kampanii"
+    },
+    "UTM_TERM": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "Szukany termin kampanii"
+    },
+    "LAST_ACTIVITY_TIME": {
+      "type": "datetime",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "LAST_ACTIVITY_TIME"
+    },
+    "LAST_ACTIVITY_BY": {
+      "type": "user",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "LAST_ACTIVITY_BY"
+    },
+    "LAST_COMMUNICATION_TIME": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": true,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": false,
+      "title": "LAST_COMMUNICATION_TIME"
+    },
+    "UF_CRM_1747772279265": {
+      "type": "file",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": true,
+      "isDynamic": true,
+      "title": "UF_CRM_1747772279265",
+      "listLabel": "Pliki",
+      "formLabel": "Pliki",
+      "filterLabel": "Pliki",
+      "settings": {
+        "SIZE": 20,
+        "LIST_WIDTH": 0,
+        "LIST_HEIGHT": 0,
+        "MAX_SHOW_SIZE": 0,
+        "MAX_ALLOWED_SIZE": 0,
+        "EXTENSIONS": [],
+        "TARGET_BLANK": "Y"
+      }
+    },
+    "UF_CRM_1765899534426": {
+      "type": "date",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1765899534426",
+      "listLabel": "Data realizacji od",
+      "formLabel": "Data realizacji od",
+      "filterLabel": "Data realizacji od",
+      "settings": {
+        "DEFAULT_VALUE": {
+          "TYPE": "NONE",
+          "VALUE": ""
+        }
+      }
+    },
+    "UF_CRM_1765899549914": {
+      "type": "date",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1765899549914",
+      "listLabel": "Data realizacji do",
+      "formLabel": "Data realizacji do",
+      "filterLabel": "Data realizacji do",
+      "settings": {
+        "DEFAULT_VALUE": {
+          "TYPE": "NONE",
+          "VALUE": ""
+        }
+      }
+    },
+    "UF_CRM_1765899602274": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "98",
+          "VALUE": "BALII OGRODOWEJ"
+        },
+        {
+          "ID": "100",
+          "VALUE": "SAUNY"
+        },
+        {
+          "ID": "102",
+          "VALUE": "JACUZZI"
+        }
+      ],
+      "title": "UF_CRM_1765899602274",
+      "listLabel": "Sprzedaż dotyczy",
+      "formLabel": "Sprzedaż dotyczy",
+      "filterLabel": "Sprzedaż dotyczy",
+      "settings": {
+        "DISPLAY": "LIST",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1765899925746": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "104",
+          "VALUE": "Raty 0%"
+        },
+        {
+          "ID": "106",
+          "VALUE": "Gotówka"
+        },
+        {
+          "ID": "108",
+          "VALUE": "Przelew"
+        }
+      ],
+      "title": "UF_CRM_1765899925746",
+      "listLabel": "Finansowanie",
+      "formLabel": "Finansowanie",
+      "filterLabel": "Finansowanie",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1766325508107": {
+      "type": "date",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1766325508107",
+      "listLabel": "Data umowy",
+      "formLabel": "Data umowy",
+      "filterLabel": "Data umowy",
+      "settings": {
+        "DEFAULT_VALUE": {
+          "TYPE": "NONE",
+          "VALUE": ""
+        }
+      }
+    },
+    "UF_CRM_1766326006467": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1766326006467",
+      "listLabel": "NIP\/PESEL",
+      "formLabel": "NIP\/PESEL",
+      "filterLabel": "NIP\/PESEL",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1766326123669": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "134",
+          "VALUE": "NIP"
+        },
+        {
+          "ID": "136",
+          "VALUE": "PESEL"
+        }
+      ],
+      "title": "UF_CRM_1766326123669",
+      "listLabel": "Identyfikator",
+      "formLabel": "Identyfikator",
+      "filterLabel": "Identyfikator",
+      "settings": {
+        "DISPLAY": "LIST",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1766326145934": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1766326145934",
+      "listLabel": "Wartosc identyfikatora",
+      "formLabel": "Wartosc identyfikatora",
+      "filterLabel": "Wartosc identyfikatora",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1766327512939": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1766327512939",
+      "listLabel": "Kwota (słownie)",
+      "formLabel": "Kwota (słownie)",
+      "filterLabel": "Kwota (słownie)",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1767279742358": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "160",
+          "VALUE": "Zewnętrzny"
+        },
+        {
+          "ID": "162",
+          "VALUE": "Wewnętrzny"
+        }
+      ],
+      "title": "UF_CRM_1767279742358",
+      "listLabel": "Rodzaj pieca",
+      "formLabel": "Rodzaj pieca",
+      "filterLabel": "Rodzaj pieca",
+      "settings": {
+        "DISPLAY": "LIST",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767279799065": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "164",
+          "VALUE": "Kształt: okrągła, Wymiar: 200cm, Wkład: włókno szklane"
+        },
+        {
+          "ID": "182",
+          "VALUE": "Kształt: okrągła, Wymiar: 200cm, Wkład:  akryl"
+        },
+        {
+          "ID": "166",
+          "VALUE": "Kształt: okrągła, Wymiar: 225cm, Wkład: włókno szklane"
+        },
+        {
+          "ID": "168",
+          "VALUE": "Kształt: kwadrat, Wymiar: 200x200cm, Wkład:  włókno szklane"
+        },
+        {
+          "ID": "170",
+          "VALUE": "Kształt: kwadrat, Wymiar: 210x210cm, Wkład:  włókno szklane"
+        }
+      ],
+      "title": "UF_CRM_1767279799065",
+      "listLabel": "Rodzaj",
+      "formLabel": "Rodzaj",
+      "filterLabel": "Rodzaj",
+      "settings": {
+        "DISPLAY": "LIST",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767279864285": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "172",
+          "VALUE": "Grafit (okrągła, kwadratowa)"
+        },
+        {
+          "ID": "174",
+          "VALUE": "Biały (okrągła, kwadratowa)"
+        },
+        {
+          "ID": "176",
+          "VALUE": "Niebieski (okrągła)"
+        },
+        {
+          "ID": "178",
+          "VALUE": "Siwy (okrągła)"
+        },
+        {
+          "ID": "180",
+          "VALUE": "Beach Pearl (okrągła)"
+        },
+        {
+          "ID": "420",
+          "VALUE": "Biały metalik (akryl)"
+        },
+        {
+          "ID": "422",
+          "VALUE": "Szary metalik (akryl)"
+        },
+        {
+          "ID": "424",
+          "VALUE": "Beżowy metalik (akryl)"
+        }
+      ],
+      "title": "UF_CRM_1767279864285",
+      "listLabel": "Kolor 200\/225cm okrągła",
+      "formLabel": "Kolor 200\/225cm okrągła",
+      "filterLabel": "Kolor 200\/225cm okrągła",
+      "settings": {
+        "DISPLAY": "LIST",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767283186056": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "224",
+          "VALUE": "nie dotyczy"
+        },
+        {
+          "ID": "184",
+          "VALUE": "Beżowy metalik"
+        },
+        {
+          "ID": "186",
+          "VALUE": "Biały metalik"
+        },
+        {
+          "ID": "188",
+          "VALUE": "Szary metalik"
+        }
+      ],
+      "title": "UF_CRM_1767283186056",
+      "listLabel": "Kolor Akrylu 200cm",
+      "formLabel": "Kolor Akrylu 200cm",
+      "filterLabel": "Kolor Akrylu 200cm",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767283376747": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "208",
+          "VALUE": "brak"
+        },
+        {
+          "ID": "190",
+          "VALUE": "8 dysz"
+        },
+        {
+          "ID": "192",
+          "VALUE": "12 dysz"
+        },
+        {
+          "ID": "194",
+          "VALUE": "16 dysz (2 pompy x 8 dysz)"
+        },
+        {
+          "ID": "196",
+          "VALUE": "24 dysze (2 pompy x 12 dysz)"
+        }
+      ],
+      "title": "UF_CRM_1767283376747",
+      "listLabel": "Hydromasaż",
+      "formLabel": "Hydromasaż",
+      "filterLabel": "Hydromasaż",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767283410476": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "206",
+          "VALUE": "brak"
+        },
+        {
+          "ID": "198",
+          "VALUE": "12 dysz"
+        },
+        {
+          "ID": "200",
+          "VALUE": "24 dysze (2x 12)"
+        }
+      ],
+      "title": "UF_CRM_1767283410476",
+      "listLabel": "Aeromasaż",
+      "formLabel": "Aeromasaż",
+      "filterLabel": "Aeromasaż",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767283447221": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "202",
+          "VALUE": "Pływający z dozownikiem chloru"
+        },
+        {
+          "ID": "204",
+          "VALUE": "Elektroniczny"
+        }
+      ],
+      "title": "UF_CRM_1767283447221",
+      "listLabel": "Termometr",
+      "formLabel": "Termometr",
+      "filterLabel": "Termometr",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767284768865": {
+      "type": "boolean",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767284768865",
+      "listLabel": "Przyłącza do filtra piaskowego",
+      "formLabel": "Przyłącza do filtra piaskowego",
+      "filterLabel": "Przyłącza do filtra piaskowego",
+      "settings": {
+        "DEFAULT_VALUE": 0,
+        "DISPLAY": "CHECKBOX",
+        "LABEL": [
+          "",
+          ""
+        ],
+        "LABEL_CHECKBOX": {
+          "pl": "Przyłącza do filtra piaskowego",
+          "en": "Przyłącza do filtra piaskowego",
+          "de": "Przyłącza do filtra piaskowego",
+          "ru": "Przyłącza do filtra piaskowego",
+          "ua": "Przyłącza do filtra piaskowego",
+          "th": "Przyłącza do filtra piaskowego",
+          "kz": "Przyłącza do filtra piaskowego",
+          "tc": "Przyłącza do filtra piaskowego",
+          "la": "Przyłącza do filtra piaskowego",
+          "sc": "Przyłącza do filtra piaskowego",
+          "br": "Przyłącza do filtra piaskowego",
+          "fr": "Przyłącza do filtra piaskowego",
+          "ar": "Przyłącza do filtra piaskowego",
+          "vn": "Przyłącza do filtra piaskowego",
+          "tr": "Przyłącza do filtra piaskowego",
+          "ja": "Przyłącza do filtra piaskowego",
+          "it": "Przyłącza do filtra piaskowego",
+          "ms": "Przyłącza do filtra piaskowego",
+          "id": "Przyłącza do filtra piaskowego"
+        }
+      }
+    },
+    "UF_CRM_1767284781485": {
+      "type": "boolean",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767284781485",
+      "listLabel": "Filtr piaskowy",
+      "formLabel": "Filtr piaskowy",
+      "filterLabel": "Filtr piaskowy",
+      "settings": {
+        "DEFAULT_VALUE": 0,
+        "DISPLAY": "CHECKBOX",
+        "LABEL": [
+          "",
+          ""
+        ],
+        "LABEL_CHECKBOX": {
+          "pl": "Filtr piaskowy",
+          "en": "Filtr piaskowy",
+          "de": "Filtr piaskowy",
+          "ru": "Filtr piaskowy",
+          "ua": "Filtr piaskowy",
+          "th": "Filtr piaskowy",
+          "kz": "Filtr piaskowy",
+          "tc": "Filtr piaskowy",
+          "la": "Filtr piaskowy",
+          "sc": "Filtr piaskowy",
+          "br": "Filtr piaskowy",
+          "fr": "Filtr piaskowy",
+          "ar": "Filtr piaskowy",
+          "vn": "Filtr piaskowy",
+          "tr": "Filtr piaskowy",
+          "ja": "Filtr piaskowy",
+          "it": "Filtr piaskowy",
+          "ms": "Filtr piaskowy",
+          "id": "Filtr piaskowy"
+        }
+      }
+    },
+    "UF_CRM_1767284866205": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "220",
+          "VALUE": "brak"
+        },
+        {
+          "ID": "210",
+          "VALUE": "3kw na pompie hydromasażu"
+        },
+        {
+          "ID": "212",
+          "VALUE": "6kw na pompie hydromasażu"
+        },
+        {
+          "ID": "214",
+          "VALUE": "3kw na oddzielnej pompie"
+        },
+        {
+          "ID": "216",
+          "VALUE": "6kw na oddzielnej pompie"
+        },
+        {
+          "ID": "218",
+          "VALUE": "9kw na oddzielnej pompie"
+        }
+      ],
+      "title": "UF_CRM_1767284866205",
+      "listLabel": "Grzałka",
+      "formLabel": "Grzałka",
+      "filterLabel": "Grzałka",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767285015858": {
+      "type": "file",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767285015858",
+      "listLabel": "Schemat podłączenia",
+      "formLabel": "Schemat podłączenia",
+      "filterLabel": "Schemat podłączenia",
+      "settings": {
+        "SIZE": 20,
+        "LIST_WIDTH": 0,
+        "LIST_HEIGHT": 0,
+        "MAX_SHOW_SIZE": 0,
+        "MAX_ALLOWED_SIZE": 0,
+        "EXTENSIONS": [],
+        "TARGET_BLANK": "Y",
+        "DEFAULT_VIEW": null
+      }
+    },
+    "UF_CRM_1767285489323": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "226",
+          "VALUE": "Dąb jasny"
+        },
+        {
+          "ID": "228",
+          "VALUE": "Orzech włoski"
+        }
+      ],
+      "title": "UF_CRM_1767285489323",
+      "listLabel": "Kolor obicia",
+      "formLabel": "Kolor obicia",
+      "filterLabel": "Kolor obicia",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767288954668": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767288954668",
+      "listLabel": "Dodatkowe informacje techniczne",
+      "formLabel": "Dodatkowe informacje techniczne",
+      "filterLabel": "Dodatkowe informacje techniczne",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1767289365804": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "230",
+          "VALUE": "Beczka"
+        },
+        {
+          "ID": "232",
+          "VALUE": "Kwadrat"
+        }
+      ],
+      "title": "UF_CRM_1767289365804",
+      "listLabel": "Kształt sauny",
+      "formLabel": "Kształt sauny",
+      "filterLabel": "Kształt sauny",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767289721330": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "234",
+          "VALUE": "Przedsionek otwarty"
+        },
+        {
+          "ID": "236",
+          "VALUE": "Przedsionek zamknięty, bez daszku"
+        },
+        {
+          "ID": "242",
+          "VALUE": "Przedsionek zamknięty, z daszkiem"
+        },
+        {
+          "ID": "238",
+          "VALUE": "Bez przedsionka, bez daszku"
+        },
+        {
+          "ID": "240",
+          "VALUE": "Bez przedsionka, z daszkiem"
+        }
+      ],
+      "title": "UF_CRM_1767289721330",
+      "listLabel": "Rodzaj sauny",
+      "formLabel": "Rodzaj sauny",
+      "filterLabel": "Rodzaj sauny",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767289799786": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "244",
+          "VALUE": "2 metry"
+        },
+        {
+          "ID": "246",
+          "VALUE": "2,5 metra"
+        },
+        {
+          "ID": "248",
+          "VALUE": "3 metry"
+        },
+        {
+          "ID": "250",
+          "VALUE": "3,5 metra"
+        },
+        {
+          "ID": "252",
+          "VALUE": "4 metry"
+        }
+      ],
+      "title": "UF_CRM_1767289799786",
+      "listLabel": "Długość sauny",
+      "formLabel": "Długość sauny",
+      "filterLabel": "Długość sauny",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767289909649": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "254",
+          "VALUE": "Czarny"
+        },
+        {
+          "ID": "256",
+          "VALUE": "Brązowy"
+        },
+        {
+          "ID": "258",
+          "VALUE": "Niebieski"
+        },
+        {
+          "ID": "260",
+          "VALUE": "Zielony"
+        },
+        {
+          "ID": "262",
+          "VALUE": "Ceglany"
+        }
+      ],
+      "title": "UF_CRM_1767289909649",
+      "listLabel": "Kolor gontu",
+      "formLabel": "Kolor gontu",
+      "filterLabel": "Kolor gontu",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767289983515": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "264",
+          "VALUE": "Etna 12, opalany zewnętrznie"
+        },
+        {
+          "ID": "266",
+          "VALUE": "Harvia m3, opalany wewnętrznie"
+        },
+        {
+          "ID": "268",
+          "VALUE": "Harvia sw90, elektryczny"
+        },
+        {
+          "ID": "270",
+          "VALUE": "Cumullus 9kW, elektryczny"
+        }
+      ],
+      "title": "UF_CRM_1767289983515",
+      "listLabel": "Rodzaj pieca [S]",
+      "formLabel": "Rodzaj pieca [S]",
+      "filterLabel": "Rodzaj pieca [S]",
+      "settings": {
+        "DISPLAY": "UI",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767291230836": {
+      "type": "boolean",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767291230836",
+      "listLabel": "Kinkiet zewnętrzny",
+      "formLabel": "Kinkiet zewnętrzny",
+      "filterLabel": "Kinkiet zewnętrzny",
+      "settings": {
+        "DEFAULT_VALUE": 0,
+        "DISPLAY": "CHECKBOX",
+        "LABEL": [
+          "",
+          ""
+        ],
+        "LABEL_CHECKBOX": {
+          "pl": "Kinkiet zewnętrzny",
+          "en": "Kinkiet zewnętrzny",
+          "de": "Kinkiet zewnętrzny",
+          "ru": "Kinkiet zewnętrzny",
+          "ua": "Kinkiet zewnętrzny",
+          "th": "Kinkiet zewnętrzny",
+          "kz": "Kinkiet zewnętrzny",
+          "tc": "Kinkiet zewnętrzny",
+          "la": "Kinkiet zewnętrzny",
+          "sc": "Kinkiet zewnętrzny",
+          "br": "Kinkiet zewnętrzny",
+          "fr": "Kinkiet zewnętrzny",
+          "ar": "Kinkiet zewnętrzny",
+          "vn": "Kinkiet zewnętrzny",
+          "tr": "Kinkiet zewnętrzny",
+          "ja": "Kinkiet zewnętrzny",
+          "it": "Kinkiet zewnętrzny",
+          "ms": "Kinkiet zewnętrzny",
+          "id": "Kinkiet zewnętrzny"
+        }
+      }
+    },
+    "UF_CRM_1767291256008": {
+      "type": "boolean",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767291256008",
+      "listLabel": "Kinkiet zewnętrzny",
+      "formLabel": "Kinkiet zewnętrzny",
+      "filterLabel": "Kinkiet zewnętrzny",
+      "settings": {
+        "DEFAULT_VALUE": 0,
+        "DISPLAY": "CHECKBOX",
+        "LABEL": [
+          "",
+          ""
+        ],
+        "LABEL_CHECKBOX": {
+          "pl": "Kinkiet zewnętrzny",
+          "en": "Kinkiet zewnętrzny",
+          "de": "Kinkiet zewnętrzny",
+          "ru": "Kinkiet zewnętrzny",
+          "ua": "Kinkiet zewnętrzny",
+          "th": "Kinkiet zewnętrzny",
+          "kz": "Kinkiet zewnętrzny",
+          "tc": "Kinkiet zewnętrzny",
+          "la": "Kinkiet zewnętrzny",
+          "sc": "Kinkiet zewnętrzny",
+          "br": "Kinkiet zewnętrzny",
+          "fr": "Kinkiet zewnętrzny",
+          "ar": "Kinkiet zewnętrzny",
+          "vn": "Kinkiet zewnętrzny",
+          "tr": "Kinkiet zewnętrzny",
+          "ja": "Kinkiet zewnętrzny",
+          "it": "Kinkiet zewnętrzny",
+          "ms": "Kinkiet zewnętrzny",
+          "id": "Kinkiet zewnętrzny"
+        }
+      }
+    },
+    "UF_CRM_1767291309093": {
+      "type": "boolean",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767291309093",
+      "listLabel": "Kinkiet zewnętrzny [S]",
+      "formLabel": "Kinkiet zewnętrzny [S]",
+      "filterLabel": "Kinkiet zewnętrzny [S]",
+      "settings": {
+        "DEFAULT_VALUE": 0,
+        "DISPLAY": "CHECKBOX",
+        "LABEL": [
+          "",
+          ""
+        ],
+        "LABEL_CHECKBOX": "Kinkiet zewnętrzny [S]"
+      }
+    },
+    "UF_CRM_1767291324959": {
+      "type": "boolean",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767291324959",
+      "listLabel": "Ledy pod ławkami",
+      "formLabel": "Ledy pod ławkami",
+      "filterLabel": "Ledy pod ławkami",
+      "settings": {
+        "DEFAULT_VALUE": 0,
+        "DISPLAY": "CHECKBOX",
+        "LABEL": [
+          "",
+          ""
+        ],
+        "LABEL_CHECKBOX": "Ledy pod ławkami"
+      }
+    },
+    "UF_CRM_1767291373518": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "272",
+          "VALUE": "Dąb jasny"
+        },
+        {
+          "ID": "274",
+          "VALUE": "Orzech włoski"
+        }
+      ],
+      "title": "UF_CRM_1767291373518",
+      "listLabel": "Kolor impregnatu",
+      "formLabel": "Kolor impregnatu",
+      "filterLabel": "Kolor impregnatu",
+      "settings": {
+        "DISPLAY": "LIST",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767291447310": {
+      "type": "boolean",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767291447310",
+      "listLabel": "Termometr wiszący",
+      "formLabel": "Termometr wiszący",
+      "filterLabel": "Termometr wiszący",
+      "settings": {
+        "DEFAULT_VALUE": 0,
+        "DISPLAY": "CHECKBOX",
+        "LABEL": [
+          "",
+          ""
+        ],
+        "LABEL_CHECKBOX": {
+          "pl": "Termometr wiszący",
+          "en": "Termometr wiszący",
+          "de": "Termometr wiszący",
+          "ru": "Termometr wiszący",
+          "ua": "Termometr wiszący",
+          "th": "Termometr wiszący",
+          "kz": "Termometr wiszący",
+          "tc": "Termometr wiszący",
+          "la": "Termometr wiszący",
+          "sc": "Termometr wiszący",
+          "br": "Termometr wiszący",
+          "fr": "Termometr wiszący",
+          "ar": "Termometr wiszący",
+          "vn": "Termometr wiszący",
+          "tr": "Termometr wiszący",
+          "ja": "Termometr wiszący",
+          "it": "Termometr wiszący",
+          "ms": "Termometr wiszący",
+          "id": "Termometr wiszący"
+        }
+      }
+    },
+    "UF_CRM_1767291472880": {
+      "type": "boolean",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767291472880",
+      "listLabel": "Kamienie 60kg",
+      "formLabel": "Kamienie 60kg",
+      "filterLabel": "Kamienie 60kg",
+      "settings": {
+        "DEFAULT_VALUE": 0,
+        "DISPLAY": "CHECKBOX",
+        "LABEL": [
+          "",
+          ""
+        ],
+        "LABEL_CHECKBOX": {
+          "pl": "Kamienie 60kg",
+          "en": "Kamienie 60kg",
+          "de": "Kamienie 60kg",
+          "ru": "Kamienie 60kg",
+          "ua": "Kamienie 60kg",
+          "th": "Kamienie 60kg",
+          "kz": "Kamienie 60kg",
+          "tc": "Kamienie 60kg",
+          "la": "Kamienie 60kg",
+          "sc": "Kamienie 60kg",
+          "br": "Kamienie 60kg",
+          "fr": "Kamienie 60kg",
+          "ar": "Kamienie 60kg",
+          "vn": "Kamienie 60kg",
+          "tr": "Kamienie 60kg",
+          "ja": "Kamienie 60kg",
+          "it": "Kamienie 60kg",
+          "ms": "Kamienie 60kg",
+          "id": "Kamienie 60kg"
+        }
+      }
+    },
+    "UF_CRM_1767452702411": {
+      "type": "double",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767452702411",
+      "listLabel": "Pozostała część",
+      "formLabel": "Pozostała część",
+      "filterLabel": "Pozostała część",
+      "settings": {
+        "PRECISION": 2,
+        "SIZE": 20,
+        "MIN_VALUE": 0,
+        "MAX_VALUE": 0,
+        "DEFAULT_VALUE": null
+      }
+    },
+    "UF_CRM_1767528944725": {
+      "type": "file",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767528944725",
+      "listLabel": "Umowa",
+      "formLabel": "Umowa",
+      "filterLabel": "Umowa",
+      "settings": {
+        "SIZE": 20,
+        "LIST_WIDTH": 0,
+        "LIST_HEIGHT": 0,
+        "MAX_SHOW_SIZE": 0,
+        "MAX_ALLOWED_SIZE": 0,
+        "EXTENSIONS": [],
+        "TARGET_BLANK": "Y",
+        "DEFAULT_VIEW": null
+      }
+    },
+    "UF_CRM_1767529633": {
+      "type": "file",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767529633",
+      "listLabel": "Umowa",
+      "formLabel": "Umowa",
+      "filterLabel": "Umowa",
+      "settings": {
+        "SIZE": 20,
+        "LIST_WIDTH": 0,
+        "LIST_HEIGHT": 0,
+        "MAX_SHOW_SIZE": 0,
+        "MAX_ALLOWED_SIZE": 0,
+        "EXTENSIONS": [],
+        "TARGET_BLANK": "Y",
+        "DEFAULT_VIEW": null
+      }
+    },
+    "UF_CRM_1767561604342": {
+      "type": "money",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767561604342",
+      "listLabel": "Kwota VAT",
+      "formLabel": "Kwota VAT",
+      "filterLabel": "Kwota VAT",
+      "settings": {
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1767561633409": {
+      "type": "money",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767561633409",
+      "listLabel": "Cena netto",
+      "formLabel": "Cena netto",
+      "filterLabel": "Cena netto",
+      "settings": {
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1767562384826": {
+      "type": "file",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767562384826",
+      "listLabel": "Faktura",
+      "formLabel": "Faktura",
+      "filterLabel": "Faktura",
+      "settings": {
+        "SIZE": 20,
+        "LIST_WIDTH": 0,
+        "LIST_HEIGHT": 0,
+        "MAX_SHOW_SIZE": 0,
+        "MAX_ALLOWED_SIZE": 0,
+        "EXTENSIONS": [],
+        "TARGET_BLANK": "Y",
+        "DEFAULT_VIEW": null
+      }
+    },
+    "UF_CRM_1767712048398": {
+      "type": "file",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767712048398",
+      "listLabel": "Nowy plik",
+      "formLabel": "Nowy plik",
+      "filterLabel": "Nowy plik",
+      "settings": {
+        "SIZE": 20,
+        "LIST_WIDTH": 0,
+        "LIST_HEIGHT": 0,
+        "MAX_SHOW_SIZE": 0,
+        "MAX_ALLOWED_SIZE": 0,
+        "EXTENSIONS": [],
+        "TARGET_BLANK": "Y",
+        "DEFAULT_VIEW": null
+      }
+    },
+    "UF_CRM_1767730209060": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767730209060",
+      "listLabel": "Dane klienta do umowy",
+      "formLabel": "Dane klienta do umowy",
+      "filterLabel": "Dane klienta do umowy",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1767730465149": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767730465149",
+      "listLabel": "Adres [ulica\/numer budynku\/ mieszkania]",
+      "formLabel": "Adres [ulica\/numer budynku\/ mieszkania]",
+      "filterLabel": "Adres [ulica\/numer budynku\/ mieszkania]",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1767730547361": {
+      "type": "enumeration",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "items": [
+        {
+          "ID": "416",
+          "VALUE": "Osoba prywatna"
+        },
+        {
+          "ID": "418",
+          "VALUE": "Firma"
+        }
+      ],
+      "title": "UF_CRM_1767730547361",
+      "listLabel": "Typ klienta",
+      "formLabel": "Typ klienta",
+      "filterLabel": "Typ klienta",
+      "settings": {
+        "DISPLAY": "LIST",
+        "LIST_HEIGHT": 1,
+        "CAPTION_NO_VALUE": "",
+        "SHOW_NO_VALUE": "Y"
+      }
+    },
+    "UF_CRM_1767730630748": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767730630748",
+      "listLabel": "Kod pocztowy + Miejscowość",
+      "formLabel": "Kod pocztowy + Miejscowość",
+      "filterLabel": "Kod pocztowy + Miejscowość",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1767736284227": {
+      "type": "money",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1767736284227",
+      "listLabel": "Zaliczka",
+      "formLabel": "Zaliczka",
+      "filterLabel": "Zaliczka",
+      "settings": {
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1768048546106": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1768048546106",
+      "listLabel": "Kształt",
+      "formLabel": "Kształt",
+      "filterLabel": "Kształt",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1768048564350": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1768048564350",
+      "listLabel": "Wymiary",
+      "formLabel": "Wymiary",
+      "filterLabel": "Wymiary",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    },
+    "UF_CRM_1768048592302": {
+      "type": "string",
+      "isRequired": false,
+      "isReadOnly": false,
+      "isImmutable": false,
+      "isMultiple": false,
+      "isDynamic": true,
+      "title": "UF_CRM_1768048592302",
+      "listLabel": "Materiał wkładu",
+      "formLabel": "Materiał wkładu",
+      "filterLabel": "Materiał wkładu",
+      "settings": {
+        "SIZE": 20,
+        "ROWS": 1,
+        "REGEXP": "",
+        "MIN_LENGTH": 0,
+        "MAX_LENGTH": 0,
+        "DEFAULT_VALUE": ""
+      }
+    }
+  },
+  "time": {
+    "start": 1768060267,
+    "finish": 1768060267.738664,
+    "duration": 0.738663911819458,
+    "processing": 0,
+    "date_start": "2026-01-10T18:51:07+03:00",
+    "date_finish": "2026-01-10T18:51:07+03:00",
+    "operating_reset_at": 1768060867,
+    "operating": 0
+  }
+}

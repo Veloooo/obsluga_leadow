@@ -1,0 +1,10 @@
+spring:
+  http:
+    converters:
+      string-encoding-charset: UTF-8
+  application:
+    name: obsluga-leadow
+fakturaxl:
+  token: ${FAKTURA_XL_TOKEN:?FAKTURA_XL_TOKEN is required}
+bitrix:
+  url: ${BITRIX_URL:? BITRIX_TOKEN is required}
