@@ -23,7 +23,7 @@ class BitrixDealService(
 
 
     fun getDeal(dealId: Long): Deal {
-        val responseString = callMethod("crm.deal.get", mapOf("ID" to dealId))
+        val responseString = callMethod("/crm.deal.get", mapOf("ID" to dealId))
         return mapJsonToDeal(responseString).toDomain()
     }
 
@@ -45,14 +45,7 @@ class BitrixDealService(
             "id" to dealId,
             "fields" to fields
         )
-        return callMethod("crm.deal.update", body)
-    }
-
-    /**
-     * Przykład dodania leada
-     */
-    fun addLead(fields: Map<String, Any>): String? {
-        return callMethod("crm.lead.add", mapOf("fields" to fields))
+        return callMethod("/crm.deal.update", body)
     }
 
 
@@ -71,7 +64,7 @@ class BitrixDealService(
 
         return try {
             val response = client.post()
-                .uri("crm.deal.update") // konieczne .json
+                .uri("/crm.deal.update") // konieczne .json
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(payload)
                 .retrieve()
