@@ -9,7 +9,7 @@ data class Deal(
     val clientType: ClientType,
     val identifier: String? = null,
     val fullName: String,
-    val baliaType: String,
+    val baliaType: String? = null,
     val baliaColor: BaliaColor? = null,
     val dealDate: LocalDate,
     val streetWithNumber: String,

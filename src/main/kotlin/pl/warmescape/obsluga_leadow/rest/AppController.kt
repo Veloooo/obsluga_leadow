@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import pl.warmescape.obsluga_leadow.bitrix.model.BaliaTypeData
 import pl.warmescape.obsluga_leadow.bitrix.model.BaliaTypes
 import pl.warmescape.obsluga_leadow.bitrix.model.ClientType
 import pl.warmescape.obsluga_leadow.bitrix.model.InvoiceType
+import pl.warmescape.obsluga_leadow.bitrix.model.Product
 import pl.warmescape.obsluga_leadow.bitrix.service.BitrixDealService
 import pl.warmescape.obsluga_leadow.bitrix.service.DataProcessingService
 import pl.warmescape.obsluga_leadow.fakturaxl.FakturaXlConnector
@@ -31,7 +33,10 @@ class DealWebhookController(
         val dealId = BitrixWebhookUtils.extractDealId(request)
         if (dealId != null) {
             val deal = bitrixDealService.getDeal(dealId)
-            val dealDataToUpdate = BaliaTypes.BY_ID[deal.baliaType]!!
+            var baliaDataToUpdate: BaliaTypeData? = null
+            if(deal.product == Product.BALIA) {
+                baliaDataToUpdate = BaliaTypes.BY_ID[deal.baliaType]!!
+            }
             val amountPolish = dataProcessingService.numberToWordsPl(deal.bruttoPrice.toInt())
             val remainingPart = deal.firstPayment?.let { deal.bruttoPrice.minus(it) }
             val identifierOnDeal = deal.identifier?.let {
@@ -41,14 +46,17 @@ class DealWebhookController(
                 }
             }
             val fieldsMap = buildMap {
-                putAll(
-                    mapOf(
-                        "UF_CRM_1768048546106" to dealDataToUpdate.shape,
-                        "UF_CRM_1768048564350" to dealDataToUpdate.dimension,
-                        "UF_CRM_1768048592302" to dealDataToUpdate.material,
-                        "UF_CRM_1766327512939" to amountPolish,
+                put("UF_CRM_1766327512939", amountPolish)
+
+                baliaDataToUpdate?.let {
+                    putAll(
+                        mapOf(
+                            "UF_CRM_1768048546106" to it.shape,
+                            "UF_CRM_1768048564350" to it.dimension,
+                            "UF_CRM_1768048592302" to it.material,
+                        )
                     )
-                )
+                }
 
                 deal.baliaColor?.let {
                     put("UF_CRM_1768060626878", it)
