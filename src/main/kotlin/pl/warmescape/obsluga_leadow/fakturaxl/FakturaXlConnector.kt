@@ -25,13 +25,13 @@ class FakturaXlConnector {
 
     fun generateInvoice(deal: Deal, invoiceType: InvoiceType): String? {
         val positions = getPositions(deal, invoiceType)
-        val dokument = prepareDokument(positions, invoiceType, deal)
+        val dokument = prepareDokument(positions, invoiceType, deal).toXml()
 
         return try {
             val createInvoiceResponse = WebClient.builder().build().post()
                 .uri("https://program.fakturaxl.pl/api/dokument_dodaj.php")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(dokument.toXml())
+                .bodyValue(dokument)
                 .retrieve()
                 .bodyToMono(String::class.java)
                 .block()!!
@@ -44,12 +44,12 @@ class FakturaXlConnector {
     }
 
     fun getPositions(deal: Deal, invoiceType: InvoiceType): List<FakturaPozycja> {
-        val productName = when(deal.product) {
+        val productName = when (deal.product) {
             Product.BALIA -> "Balia ogrodowa"
             Product.SAUNA -> "Sauna ogrodowa"
         }
 
-        val invoiceBruttoPrice = when(invoiceType) {
+        val invoiceBruttoPrice = when (invoiceType) {
             InvoiceType.PROFORMA_ZALICZKA, InvoiceType.ZALICZKA -> deal.firstPayment!!
             InvoiceType.KONCOWA -> deal.bruttoPrice.minus(deal.firstPayment ?: BigDecimal.ZERO)
             InvoiceType.FV -> deal.bruttoPrice
@@ -95,37 +95,54 @@ class FakturaXlConnector {
     }
 
 
-    fun prepareDokument(positions: List<FakturaPozycja>, invoiceType: InvoiceType, deal: Deal) = Dokument(
-        apiToken = fakturaXlToken,
-        typFaktury = invoiceType.fakturaXlType,
-        typFakturPodtyp = 0,
-        obliczajSumeWartosciFakturyWg = 0,
-        dataWystawienia = LocalDate.now().toString(),
-        dataSprzedazy = deal.dealDate.toString(),
-        terminPlatnosciData = LocalDate.now().plusDays(14).toString(),
-        kwotaOplacona = 0.0,
-        waluta = "PLN",
-        kurs = 1.0,
-        rodzajPlatnosci = "Przelew",
-        jezyk = 0,
-        szablon = 0,
-        imieNazwiskoWystawcy = "",
-        imieNazwiskoOdbiorcy = when(deal.clientType) {
-            ClientType.FIRMA -> null
-            ClientType.OSOBA_PRYWATNA -> deal.fullName
-        },
-        idDzialyFirmy = 195121,
-        wyslijDokumentDoKlientaEmailem = 0,
-        obliczajWartoscFakturyOd = 0,
-        pozycje = positions,
-        nabywca = Nabywca(
-            firmaLubOsobaPrywatna = when(deal.clientType) {
+    fun prepareDokument(positions: List<FakturaPozycja>, invoiceType: InvoiceType, deal: Deal): Dokument {
+        return Dokument(
+            apiToken = fakturaXlToken,
+            typFaktury = invoiceType.fakturaXlType,
+            typFakturPodtyp = 0,
+            obliczajSumeWartosciFakturyWg = 0,
+            dataWystawienia = LocalDate.now().toString(),
+            dataSprzedazy = deal.dealDate.toString(),
+            terminPlatnosciData = LocalDate.now().plusDays(14).toString(),
+            kwotaOplacona = 0.0,
+            waluta = "PLN",
+            kurs = 1.0,
+            rodzajPlatnosci = "Przelew",
+            jezyk = 0,
+            szablon = 0,
+            imieNazwiskoWystawcy = "",
+            imieNazwiskoOdbiorcy = when (deal.clientType) {
+                ClientType.FIRMA -> null
+                ClientType.OSOBA_PRYWATNA -> deal.fullName
+            },
+            idDzialyFirmy = 195121,
+            wyslijDokumentDoKlientaEmailem = 0,
+            obliczajWartoscFakturyOd = 0,
+            pozycje = positions,
+            nabywca = prepareNabywca(deal)
+        )
+    }
+
+    fun prepareNabywca(deal: Deal): Nabywca {
+        val (imie, nazwisko) = when (deal.clientType) {
+            ClientType.FIRMA -> null to null
+            ClientType.OSOBA_PRYWATNA -> {
+                deal.fullName.split(" ").let {
+                    it[0] to it[1]
+                }
+            }
+        }
+        return Nabywca(
+            firmaLubOsobaPrywatna = when (deal.clientType) {
                 ClientType.FIRMA -> 0
                 ClientType.OSOBA_PRYWATNA -> 1
             },
             nazwa = prepareName(deal),
+            imie = imie,
+            nazwisko = nazwisko,
+            dodatkowaInformacja = prepareName(deal),
         )
-    )
+    }
 
     fun prepareFakturaPozycja(name: String, wartoscBrutto: BigDecimal) = FakturaPozycja(
         nazwa = name,
@@ -203,11 +220,13 @@ class FakturaXlConnector {
 
     private fun prepareName(deal: Deal): String {
         return buildString {
-            appendLine(deal.fullName)
+            if (deal.clientType == ClientType.FIRMA) {
+                appendLine(deal.fullName)
+            }
             appendLine(deal.streetWithNumber)
             appendLine(deal.postalCodeWithCity)
             deal.identifier?.let {
-                when(deal.clientType) {
+                when (deal.clientType) {
                     ClientType.FIRMA -> appendLine("NIP: $it")
                     ClientType.OSOBA_PRYWATNA -> appendLine("PESEL: $it")
                 }
