@@ -47,9 +47,13 @@ class DealWebhookController(
                         "UF_CRM_1768048564350" to dealDataToUpdate.dimension,
                         "UF_CRM_1768048592302" to dealDataToUpdate.material,
                         "UF_CRM_1766327512939" to amountPolish,
-                        "UF_CRM_1768060626878" to deal.baliaColor.label,
                     )
                 )
+
+                deal.baliaColor?.let {
+                    put("UF_CRM_1768060626878", it)
+                }
+
                 remainingPart?.let {
                     put("UF_CRM_1767452702411", it)
                 }

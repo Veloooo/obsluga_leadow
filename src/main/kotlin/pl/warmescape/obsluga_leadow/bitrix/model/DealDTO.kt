@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import kotlin.text.toInt
 
 data class DealDTO(
     @JsonProperty("OPPORTUNITY")
@@ -45,7 +46,9 @@ data class DealDTO(
         },
         baliaType = baliaType,
         dealDate = dealDate.toLocalDate(),
-        baliaColor = BaliaColor.getById(color.toInt()),
+        baliaColor = color.takeIf { it.isNotBlank() }?.let {
+            BaliaColor.getById(it.toInt())
+        },
         identifier = identifier.takeIf { it.isNotBlank() },
         fullName = fullName,
         streetWithNumber = streetWithNumber,
