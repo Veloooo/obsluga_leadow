@@ -1,5 +1,6 @@
 package pl.warmescape.obsluga_leadow.fakturaxl
 
+import mu.two.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -22,20 +23,21 @@ import kotlin.text.appendLine
 class FakturaXlConnector {
     @Value("\${fakturaxl.token}")
     lateinit var fakturaXlToken: String
+    private val logger = KotlinLogging.logger {}
 
     fun generateInvoice(deal: Deal, invoiceType: InvoiceType): String? {
         val positions = getPositions(deal, invoiceType)
-        val dokument = prepareDokument(positions, invoiceType, deal).toXml()
-
+        val dokument = prepareDokument(positions, invoiceType, deal)
+        logger.info { "Faktura XL create invoice request: ${dokument.copy(apiToken = "")}" }
         return try {
             val createInvoiceResponse = WebClient.builder().build().post()
                 .uri("https://program.fakturaxl.pl/api/dokument_dodaj.php")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(dokument)
+                .bodyValue(dokument.toXml())
                 .retrieve()
                 .bodyToMono(String::class.java)
                 .block()!!
-            println(createInvoiceResponse)
+            logger.info { "Faktura XL create invoice response: $createInvoiceResponse" }
             return extractUnikatowyKod(createInvoiceResponse)
         } catch (ex: Exception) {
             println("Błąd generowania faktury proforma: ${ex.message}")

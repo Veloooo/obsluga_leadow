@@ -1,6 +1,7 @@
 package pl.warmescape.obsluga_leadow.rest
 
 import jakarta.servlet.http.HttpServletRequest
+import mu.two.KotlinLogging
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,6 +15,7 @@ import pl.warmescape.obsluga_leadow.bitrix.service.DataProcessingService
 import pl.warmescape.obsluga_leadow.fakturaxl.FakturaXlConnector
 import pl.warmescape.obsluga_leadow.bitrix.util.BitrixWebhookUtils
 
+private val logger = KotlinLogging.logger {}
 
 @RestController
 @RequestMapping("/api/bitrix")
@@ -27,7 +29,6 @@ class DealWebhookController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         val dealId = BitrixWebhookUtils.extractDealId(request)
-        println("DEAL ID: $dealId")
         if (dealId != null) {
             val deal = bitrixDealService.getDeal(dealId)
             val dealDataToUpdate = BaliaTypes.BY_ID[deal.baliaType]!!
@@ -71,14 +72,15 @@ class DealWebhookController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         val dealId = BitrixWebhookUtils.extractDealId(request)
-        println("DEAL ID: $dealId")
         if (dealId != null) {
             val deal = bitrixDealService.getDeal(dealId)
             val invoiceCode = deal.firstPayment?.let {
+                logger.info { "First payment, generating invoice pf" }
                 fakturaXlConnector.generateInvoice(
                     deal, InvoiceType.PROFORMA_ZALICZKA
                 )
             }
+            logger.info { "Invoice code: $invoiceCode" }
             invoiceCode?.let {
                 val invoiceFile = fakturaXlConnector.getInvoiceContent(it)
                 bitrixDealService.uploadFakturaBase64(dealId, invoiceFile, InvoiceType.PROFORMA_ZALICZKA)
@@ -93,10 +95,10 @@ class DealWebhookController(
         request: HttpServletRequest
     ): ResponseEntity<String> {
         val dealId = BitrixWebhookUtils.extractDealId(request)
-        println("DEAL ID: $dealId")
         if (dealId != null) {
             val deal = bitrixDealService.getDeal(dealId)
             val invoiceCode = deal.firstPayment?.let {
+                logger.info { "First payment, generating invoice" }
                 fakturaXlConnector.generateInvoice(
                     deal, InvoiceType.ZALICZKA
                 )
