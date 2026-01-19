@@ -31,10 +31,13 @@ data class DealDTO(
     val color: String,
     @JsonProperty("UF_CRM_1767736284227")
     val firstPayment: String? = null,
+    @JsonProperty("UF_CRM_1768751673941")
+    val fakturaZaliczkowaId: Int? = null,
 ) {
     fun toDomain() = Deal(
         bruttoPrice = bruttoPrice,
         product = when(product) {
+            "24" -> Product.BALIA_I_SAUNA
             "22" -> Product.BALIA
             "20" -> Product.SAUNA
             else -> throw RuntimeException("Nieprawidłowy rodzaj produktu!")
@@ -64,6 +67,7 @@ data class DealDTO(
             ?.split("|")
             ?.firstOrNull()
             ?.takeIf { it.isNotBlank() }
-            ?.let { BigDecimal(it) }
+            ?.let { BigDecimal(it) },
+        fakturaZaliczkowaId = fakturaZaliczkowaId,
     )
 }

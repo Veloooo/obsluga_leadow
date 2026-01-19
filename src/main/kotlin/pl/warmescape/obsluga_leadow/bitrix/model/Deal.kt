@@ -12,6 +12,7 @@ data class Deal(
     val baliaType: String? = null,
     val baliaColor: BaliaColor? = null,
     val dealDate: LocalDate,
+    val fakturaZaliczkowaId: Int?,
     val streetWithNumber: String,
     val postalCodeWithCity: String,
     val financingType: FinancingType,

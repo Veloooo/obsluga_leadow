@@ -49,7 +49,7 @@ class BitrixDealService(
     }
 
 
-    fun uploadFakturaBase64(dealId: Long, file: ByteArray, invoiceType: InvoiceType): Boolean {
+    fun uploadFakturaBase64(dealId: Long, file: ByteArray, invoiceType: InvoiceType, invoiceName: String): Boolean {
         val base64File = Base64.getEncoder().encodeToString(file)
 
         // Payload z użyciem fileData
@@ -57,7 +57,7 @@ class BitrixDealService(
             "id" to dealId,
             "fields" to mapOf(
                 invoiceType.bitrixField to mapOf(
-                    "fileData" to listOf("${invoiceType.fileName}.pdf", base64File)
+                    "fileData" to listOf("$invoiceName.pdf", base64File)
                 )
             )
         )

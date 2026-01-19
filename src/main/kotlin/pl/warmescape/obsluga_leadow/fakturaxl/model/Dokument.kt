@@ -24,6 +24,7 @@ data class Dokument(
     val idDzialyFirmy: Long,
     val wyslijDokumentDoKlientaEmailem: Int,
     val obliczajWartoscFakturyOd: Int,
+    val fakturaZaliczkowaId: Int? = null,
     val notatkaPrywatna: String? = null,
     val nabywca: Nabywca,
     val pozycje: List<FakturaPozycja>,

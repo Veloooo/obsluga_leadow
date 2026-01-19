@@ -34,7 +34,7 @@ class DealWebhookController(
         if (dealId != null) {
             val deal = bitrixDealService.getDeal(dealId)
             var baliaDataToUpdate: BaliaTypeData? = null
-            if(deal.product == Product.BALIA) {
+            if(deal.product == Product.BALIA || deal.product == Product.BALIA_I_SAUNA) {
                 baliaDataToUpdate = BaliaTypes.BY_ID[deal.baliaType]!!
             }
             val amountPolish = dataProcessingService.numberToWordsPl(deal.bruttoPrice.toInt())
@@ -59,7 +59,7 @@ class DealWebhookController(
                 }
 
                 deal.baliaColor?.let {
-                    put("UF_CRM_1768060626878", it)
+                    put("UF_CRM_1768060626878", it.label)
                 }
 
                 remainingPart?.let {
@@ -94,8 +94,8 @@ class DealWebhookController(
             }
             logger.info { "Invoice code: $invoiceCode" }
             invoiceCode?.let {
-                val invoiceFile = fakturaXlConnector.getInvoiceContent(it)
-                bitrixDealService.uploadFakturaBase64(dealId, invoiceFile, InvoiceType.PROFORMA_ZALICZKA)
+                val invoiceFile = fakturaXlConnector.getInvoiceContent(it.unikatowyKod)
+                bitrixDealService.uploadFakturaBase64(dealId, invoiceFile, InvoiceType.PROFORMA_ZALICZKA, it.dokumentNr)
             }
         }
 
@@ -116,8 +116,14 @@ class DealWebhookController(
                 )
             }
             invoiceCode?.let {
-                val invoiceFile = fakturaXlConnector.getInvoiceContent(it)
-                bitrixDealService.uploadFakturaBase64(dealId, invoiceFile, InvoiceType.ZALICZKA)
+                val invoiceFile = fakturaXlConnector.getInvoiceContent(it.unikatowyKod)
+                bitrixDealService.uploadFakturaBase64(dealId, invoiceFile, InvoiceType.ZALICZKA, it.dokumentNr)
+                bitrixDealService.updateDealFields(
+                    dealId,
+                    mapOf(
+                        "UF_CRM_1768751673941" to it.dokumentId
+                    )
+                )
             }
         }
 
@@ -141,8 +147,8 @@ class DealWebhookController(
             )
 
             invoiceCode?.let {
-                val invoiceFile = fakturaXlConnector.getInvoiceContent(it)
-                bitrixDealService.uploadFakturaBase64(dealId, invoiceFile, InvoiceType.KONCOWA)
+                val invoiceFile = fakturaXlConnector.getInvoiceContent(it.unikatowyKod)
+                bitrixDealService.uploadFakturaBase64(dealId, invoiceFile, InvoiceType.KONCOWA, it.dokumentNr)
             }
         }
 

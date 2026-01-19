@@ -12,6 +12,7 @@ import pl.warmescape.obsluga_leadow.bitrix.model.InvoiceType
 import pl.warmescape.obsluga_leadow.bitrix.model.Product
 import pl.warmescape.obsluga_leadow.fakturaxl.model.Dokument
 import pl.warmescape.obsluga_leadow.fakturaxl.model.FakturaPozycja
+import pl.warmescape.obsluga_leadow.fakturaxl.model.FakturaXlCreateInvoiceResponse
 import pl.warmescape.obsluga_leadow.fakturaxl.model.Nabywca
 import java.io.StringReader
 import java.math.BigDecimal
@@ -25,7 +26,7 @@ class FakturaXlConnector {
     lateinit var fakturaXlToken: String
     private val logger = KotlinLogging.logger {}
 
-    fun generateInvoice(deal: Deal, invoiceType: InvoiceType): String? {
+    fun generateInvoice(deal: Deal, invoiceType: InvoiceType): FakturaXlCreateInvoiceResponse? {
         val positions = getPositions(deal, invoiceType)
         val dokument = prepareDokument(positions, invoiceType, deal)
         logger.info { "Faktura XL create invoice request: ${dokument.copy(apiToken = "")}" }
@@ -38,40 +39,94 @@ class FakturaXlConnector {
                 .bodyToMono(String::class.java)
                 .block()!!
             logger.info { "Faktura XL create invoice response: $createInvoiceResponse" }
-            return extractUnikatowyKod(createInvoiceResponse)
+            return getFakturaXlCreateInvoiceResponse(createInvoiceResponse)
         } catch (ex: Exception) {
             println("Błąd generowania faktury proforma: ${ex.message}")
             null
         }
     }
 
-    fun getPositions(deal: Deal, invoiceType: InvoiceType): List<FakturaPozycja> {
-        val productName = when (deal.product) {
-            Product.BALIA -> "Balia ogrodowa"
-            Product.SAUNA -> "Sauna ogrodowa"
-        }
+    fun getPositions(
+        deal: Deal,
+        invoiceType: InvoiceType
+    ): List<FakturaPozycja> {
 
-        val invoiceBruttoPrice = when (invoiceType) {
-            InvoiceType.PROFORMA_ZALICZKA, InvoiceType.ZALICZKA -> deal.firstPayment!!
-            InvoiceType.KONCOWA -> deal.bruttoPrice.minus(deal.firstPayment ?: BigDecimal.ZERO)
-            InvoiceType.FV -> deal.bruttoPrice
-        }
+        val brutto = deal.bruttoPrice
+        val zaliczka = deal.firstPayment ?: BigDecimal.ZERO
 
-        return buildList {
-            when (invoiceType) {
-                InvoiceType.KONCOWA -> {
-                    add(prepareFakturaPozycja("$productName - zaliczka", deal.firstPayment!!))
-                    add(prepareFakturaPozycja(productName, invoiceBruttoPrice - deal.firstPayment))
+        return when (invoiceType) {
+
+            InvoiceType.PROFORMA_ZALICZKA,
+            InvoiceType.ZALICZKA -> when (deal.product) {
+
+                Product.BALIA ->
+                    listOf(prepareFakturaPozycja("Balia ogrodowa", zaliczka))
+
+                Product.SAUNA ->
+                    listOf(prepareFakturaPozycja("Sauna ogrodowa", zaliczka))
+
+                Product.BALIA_I_SAUNA -> {
+                    val halfZaliczka = zaliczka.divide(BigDecimal(2))
+                    listOf(
+                        prepareFakturaPozycja("Sauna ogrodowa - zaliczka", halfZaliczka),
+                        prepareFakturaPozycja("Balia ogrodowa - zaliczka", halfZaliczka)
+                    )
                 }
+            }
 
-                InvoiceType.PROFORMA_ZALICZKA, InvoiceType.ZALICZKA -> {
-                    add(prepareFakturaPozycja("$productName - zaliczka", deal.firstPayment!!))
+            InvoiceType.FV -> when (deal.product) {
+
+                Product.BALIA ->
+                    listOf(prepareFakturaPozycja("Balia ogrodowa", brutto))
+
+                Product.SAUNA ->
+                    listOf(prepareFakturaPozycja("Sauna ogrodowa", brutto))
+
+                Product.BALIA_I_SAUNA -> {
+                    val halfBrutto = brutto.divide(BigDecimal(2))
+                    listOf(
+                        prepareFakturaPozycja("Sauna ogrodowa", halfBrutto),
+                        prepareFakturaPozycja("Balia ogrodowa", halfBrutto)
+                    )
                 }
+            }
 
-                InvoiceType.FV -> add(prepareFakturaPozycja(productName, invoiceBruttoPrice))
+            InvoiceType.KONCOWA -> when (deal.product) {
+
+                Product.BALIA ->
+                    listOf(
+                        prepareFakturaPozycja("Balia ogrodowa - zaliczka", zaliczka),
+                        prepareFakturaPozycja(
+                            "Balia ogrodowa",
+                            brutto.minus(zaliczka)
+                        )
+                    )
+
+                Product.SAUNA ->
+                    listOf(
+                        prepareFakturaPozycja("Sauna ogrodowa - zaliczka", zaliczka),
+                        prepareFakturaPozycja(
+                            "Sauna ogrodowa",
+                            brutto.minus(zaliczka)
+                        )
+                    )
+
+                Product.BALIA_I_SAUNA -> {
+                    val halfBrutto = brutto.divide(BigDecimal(2))
+                    val halfZaliczka = zaliczka.divide(BigDecimal(2))
+                    val productValue = halfBrutto.minus(halfZaliczka)
+
+                    listOf(
+                        prepareFakturaPozycja("Sauna ogrodowa - zaliczka", halfZaliczka),
+                        prepareFakturaPozycja("Balia ogrodowa - zaliczka", halfZaliczka),
+                        prepareFakturaPozycja("Sauna ogrodowa", productValue),
+                        prepareFakturaPozycja("Balia ogrodowa", productValue)
+                    )
+                }
             }
         }
     }
+
 
     fun getInvoiceContent(code: String): ByteArray {
         return WebClient
@@ -85,15 +140,22 @@ class FakturaXlConnector {
             .block()!!
     }
 
-    fun extractUnikatowyKod(xmlResponse: String): String? {
+    fun getFakturaXlCreateInvoiceResponse(xmlResponse: String): FakturaXlCreateInvoiceResponse {
         val factory = DocumentBuilderFactory.newInstance()
         val builder = factory.newDocumentBuilder()
         val document = builder.parse(InputSource(StringReader(xmlResponse)))
 
-        val nodes = document.getElementsByTagName("unikatowy_kod")
-        if (nodes.length == 0) return null
+        val unikatowyKod = document.getElementsByTagName("unikatowy_kod")
+        val kod = document.getElementsByTagName("kod")
+        val dokumentId = document.getElementsByTagName("dokument_id")
+        val dokumentNr = document.getElementsByTagName("dokument_nr")
 
-        return nodes.item(0).textContent!!
+        return FakturaXlCreateInvoiceResponse(
+            kod = kod.item(0).textContent!!,
+            unikatowyKod = unikatowyKod.item(0).textContent!!,
+            dokumentId = dokumentId.item(0).textContent!!,
+            dokumentNr = dokumentNr.item(0).textContent!!.trim().replace("/", "_")
+        )
     }
 
 
@@ -121,29 +183,68 @@ class FakturaXlConnector {
             wyslijDokumentDoKlientaEmailem = 0,
             obliczajWartoscFakturyOd = 0,
             pozycje = positions,
-            nabywca = prepareNabywca(deal)
+            nabywca = prepareNabywca(deal),
+            fakturaZaliczkowaId = deal.fakturaZaliczkowaId,
         )
     }
 
     fun prepareNabywca(deal: Deal): Nabywca {
+
         val (imie, nazwisko) = when (deal.clientType) {
             ClientType.FIRMA -> null to null
             ClientType.OSOBA_PRYWATNA -> {
-                deal.fullName.split(" ").let {
-                    it[0] to it[1]
-                }
+                val parts = deal.fullName.trim().split("\\s+".toRegex(), limit = 2)
+                parts.getOrNull(0) to parts.getOrNull(1)
             }
         }
+
+        val (kodPocztowy, miejscowosc) = parsePostalCodeAndCity(deal.postalCodeWithCity)
+
         return Nabywca(
             firmaLubOsobaPrywatna = when (deal.clientType) {
                 ClientType.FIRMA -> 0
                 ClientType.OSOBA_PRYWATNA -> 1
             },
-            nazwa = prepareName(deal),
+            nazwa = if (deal.clientType == ClientType.FIRMA) deal.fullName else "$imie $nazwisko",
             imie = imie,
             nazwisko = nazwisko,
             dodatkowaInformacja = prepareName(deal),
+            nip = if (deal.clientType == ClientType.FIRMA) deal.identifier else null,
+            ulicaINumer = deal.streetWithNumber,
+            kodPocztowy = kodPocztowy,
+            miejscowosc = miejscowosc
         )
+    }
+
+
+    private fun parsePostalCodeAndCity(value: String): Pair<String?, String?> {
+        val trimmed = value.trim()
+        val firstSpaceIndex = trimmed.indexOf(' ')
+
+        return if (firstSpaceIndex > 0) {
+            val code = trimmed.substring(0, firstSpaceIndex)
+            val city = trimmed.substring(firstSpaceIndex + 1).trim()
+            code to city
+        } else {
+            null to trimmed.ifBlank { null }
+        }
+    }
+
+
+    private fun prepareName(deal: Deal): String {
+        return buildString {
+            if (deal.clientType == ClientType.FIRMA) {
+                appendLine(deal.fullName)
+            }
+            appendLine(deal.streetWithNumber)
+            appendLine(deal.postalCodeWithCity)
+            deal.identifier?.let {
+                when (deal.clientType) {
+                    ClientType.FIRMA -> appendLine("NIP: $it")
+                    ClientType.OSOBA_PRYWATNA -> appendLine("PESEL: $it")
+                }
+            }
+        }
     }
 
     fun prepareFakturaPozycja(name: String, wartoscBrutto: BigDecimal) = FakturaPozycja(
@@ -185,6 +286,7 @@ class FakturaXlConnector {
             appendLine("<wyslij_dokument_do_klienta_emailem>$wyslijDokumentDoKlientaEmailem</wyslij_dokument_do_klienta_emailem>")
             appendLine("<obliczaj_wartosc_faktury_od>$obliczajWartoscFakturyOd</obliczaj_wartosc_faktury_od>")
             appendLine("<notatka_prywatna>${notatkaPrywatna ?: ""}</notatka_prywatna>")
+            appendLine("<dokument_rel_id>${fakturaZaliczkowaId ?: ""}</dokument_rel_id>")
 
             appendLine("<nabywca>")
             appendLine("<firma_lub_osoba_prywatna>${nabywca.firmaLubOsobaPrywatna}</firma_lub_osoba_prywatna>")
@@ -219,20 +321,4 @@ class FakturaXlConnector {
 
             appendLine("</dokument>")
         }
-
-    private fun prepareName(deal: Deal): String {
-        return buildString {
-            if (deal.clientType == ClientType.FIRMA) {
-                appendLine(deal.fullName)
-            }
-            appendLine(deal.streetWithNumber)
-            appendLine(deal.postalCodeWithCity)
-            deal.identifier?.let {
-                when (deal.clientType) {
-                    ClientType.FIRMA -> appendLine("NIP: $it")
-                    ClientType.OSOBA_PRYWATNA -> appendLine("PESEL: $it")
-                }
-            }
-        }
-    }
 }
