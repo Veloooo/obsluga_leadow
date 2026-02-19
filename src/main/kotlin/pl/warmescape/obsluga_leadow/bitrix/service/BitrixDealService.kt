@@ -9,6 +9,7 @@ import pl.warmescape.obsluga_leadow.bitrix.model.BaliaTypeData
 import pl.warmescape.obsluga_leadow.bitrix.model.Deal
 import pl.warmescape.obsluga_leadow.bitrix.model.DealDTO
 import pl.warmescape.obsluga_leadow.bitrix.model.InvoiceType
+import java.time.LocalDate
 import java.util.Base64
 
 @Service
@@ -77,6 +78,62 @@ class BitrixDealService(
             println("Błąd update pliku w deal: ${ex.message}")
             false
         }
+    }
+
+    fun createCalendarEvent(
+        name: String,
+        from: LocalDate,
+        to: LocalDate,
+        description: String,
+        dealId: Long,
+        attendees: List<Long> = emptyList(),
+        color: String? = null,
+    ): String {
+        val sectionId = getCompanyCalendarSectionId()
+        val payload = buildMap {
+            put("type", "company_calendar")
+            put("ownerId", 0)
+            put("section", sectionId)
+            put("name", name)
+            put("description", description)
+            put("from", from.toString())
+            put("to", to.toString())
+            put("skip_time", "Y")
+            put("crm_fields", listOf("D_$dealId"))
+            if (attendees.isNotEmpty()) {
+                put("is_meeting", "Y")
+                put("host", attendees.first())
+                put("attendees", attendees)
+            }
+            color?.let { put("color", it) }
+        }
+        return callMethod("/calendar.event.add", payload)
+    }
+
+    fun getCurrentUserId(): Long {
+        val response = callMethod("/user.current", emptyMap())
+        val user = objectMapper.readTree(response)["result"]
+            ?: throw IllegalStateException("Nie można pobrać aktualnego użytkownika")
+        return user["ID"].asLong()
+    }
+
+    fun getContactFullName(contactId: Long): String {
+        val response = callMethod("/crm.contact.get", mapOf("ID" to contactId))
+        val contact = objectMapper.readTree(response)["result"]
+            ?: throw IllegalStateException("Brak kontaktu o ID $contactId")
+        val name = contact["NAME"]?.asText("") ?: ""
+        val lastName = contact["LAST_NAME"]?.asText("") ?: ""
+        return "$name $lastName".trim()
+    }
+
+    private fun getCompanyCalendarSectionId(): Int {
+        val response = callMethod(
+            "/calendar.section.get",
+            mapOf("type" to "company_calendar", "ownerId" to 0)
+        )
+        val sections = objectMapper.readTree(response)["result"]
+            ?: throw IllegalStateException("Brak sekcji w kalendarzu firmowym")
+        return sections.first()["ID"].asInt()
     }
 
     fun mapJsonToDeal(json: String): DealDTO {

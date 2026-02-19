@@ -17,4 +17,8 @@ data class Deal(
     val postalCodeWithCity: String,
     val financingType: FinancingType,
     val firstPayment: BigDecimal? = null,
+    val realizacjaOd: LocalDate? = null,
+    val realizacjaDo: LocalDate? = null,
+    val assignedById: Long? = null,
+    val contactId: Long? = null,
 )

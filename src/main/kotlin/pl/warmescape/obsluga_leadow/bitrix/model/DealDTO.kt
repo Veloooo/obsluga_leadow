@@ -33,6 +33,14 @@ data class DealDTO(
     val firstPayment: String? = null,
     @JsonProperty("UF_CRM_1768751673941")
     val fakturaZaliczkowaId: Int? = null,
+    @JsonProperty("UF_CRM_1765899534426")
+    val realizacjaOd: OffsetDateTime? = null,
+    @JsonProperty("UF_CRM_1765899549914")
+    val realizacjaDo: OffsetDateTime? = null,
+    @JsonProperty("ASSIGNED_BY_ID")
+    val assignedById: String? = null,
+    @JsonProperty("CONTACT_ID")
+    val contactId: String? = null,
 ) {
     fun toDomain() = Deal(
         bruttoPrice = bruttoPrice,
@@ -69,5 +77,9 @@ data class DealDTO(
             ?.takeIf { it.isNotBlank() }
             ?.let { BigDecimal(it) },
         fakturaZaliczkowaId = fakturaZaliczkowaId,
+        realizacjaOd = realizacjaOd?.toLocalDate(),
+        realizacjaDo = realizacjaDo?.toLocalDate(),
+        assignedById = assignedById?.takeIf { it.isNotBlank() }?.toLong(),
+        contactId = contactId?.takeIf { it.isNotBlank() }?.toLong(),
     )
 }

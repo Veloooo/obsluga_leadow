@@ -130,6 +130,48 @@ class DealWebhookController(
         return ResponseEntity.ok("OK")
     }
 
+    @PostMapping("/generuj-wydarzenie", consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])
+    fun generujWydarzenie(
+        request: HttpServletRequest
+    ): ResponseEntity<String> {
+        val dealId = BitrixWebhookUtils.extractDealId(request)
+        if (dealId != null) {
+            val deal = bitrixDealService.getDeal(dealId)
+            val od = deal.realizacjaOd
+            val doo = deal.realizacjaDo
+            if (od != null && doo != null) {
+                // TODO: testowe – pobieranie uczestników po imionach
+                val currentUserId = bitrixDealService.getCurrentUserId()
+                val attendees = listOf(currentUserId) + listOf(8L, 1L, 38L, 10L, 14L).filter { it != currentUserId }
+                val contactName = deal.contactId?.let { bitrixDealService.getContactFullName(it) } ?: deal.fullName
+                val description = "#$dealId | ${deal.streetWithNumber}, ${deal.postalCodeWithCity}"
+                val eventsToCreate = when (deal.product) {
+                    Product.BALIA -> listOf("Realizacja Balia | $contactName" to "#1E90FF")
+                    Product.SAUNA -> listOf("Realizacja Sauna | $contactName" to "#FFD700")
+                    Product.BALIA_I_SAUNA -> listOf(
+                        "Realizacja Balia | $contactName" to "#1E90FF",
+                        "Realizacja Sauna | $contactName" to "#FFD700",
+                    )
+                }
+                eventsToCreate.forEach { (eventName, color) ->
+                    logger.info { "Tworzenie wydarzenia '$eventName' dla deala $dealId: $od – $doo, kolor: $color" }
+                    bitrixDealService.createCalendarEvent(
+                        name = eventName,
+                        from = od,
+                        to = doo,
+                        description = description,
+                        dealId = dealId,
+                        attendees = attendees,
+                        color = color,
+                    )
+                }
+            } else {
+                logger.warn { "Brak dat realizacji dla deala $dealId (od=$od, do=$doo)" }
+            }
+        }
+        return ResponseEntity.ok("OK")
+    }
+
     @PostMapping("/generuj-fk", consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])
     fun prepareFk(
         request: HttpServletRequest
