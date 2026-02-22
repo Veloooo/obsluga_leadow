@@ -21,4 +21,5 @@ data class Deal(
     val realizacjaDo: LocalDate? = null,
     val assignedById: Long? = null,
     val contactId: Long? = null,
+    val seller: Seller,
 )

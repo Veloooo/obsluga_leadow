@@ -10,6 +10,7 @@ import pl.warmescape.obsluga_leadow.bitrix.model.ClientType
 import pl.warmescape.obsluga_leadow.bitrix.model.Deal
 import pl.warmescape.obsluga_leadow.bitrix.model.InvoiceType
 import pl.warmescape.obsluga_leadow.bitrix.model.Product
+import pl.warmescape.obsluga_leadow.bitrix.model.Seller
 import pl.warmescape.obsluga_leadow.fakturaxl.model.Dokument
 import pl.warmescape.obsluga_leadow.fakturaxl.model.FakturaPozycja
 import pl.warmescape.obsluga_leadow.fakturaxl.model.FakturaXlCreateInvoiceResponse
@@ -22,8 +23,11 @@ import kotlin.text.appendLine
 
 @Service
 class FakturaXlConnector {
-    @Value("\${fakturaxl.token}")
-    lateinit var fakturaXlToken: String
+    @Value("\${fakturaxl.tokenStormedge}")
+    lateinit var fakturaXlTokenStormedge: String
+
+    @Value("\${fakturaxl.tokenKaras}")
+    lateinit var fakturaXlTokenKaras: String
     private val logger = KotlinLogging.logger {}
 
     fun generateInvoice(deal: Deal, invoiceType: InvoiceType): FakturaXlCreateInvoiceResponse? {
@@ -160,8 +164,12 @@ class FakturaXlConnector {
 
 
     fun prepareDokument(positions: List<FakturaPozycja>, invoiceType: InvoiceType, deal: Deal): Dokument {
+        val token = when (deal.seller) {
+            Seller.STORMEDGE -> fakturaXlTokenStormedge
+            Seller.KARAS -> fakturaXlTokenKaras
+        }
         return Dokument(
-            apiToken = fakturaXlToken,
+            apiToken = token,
             typFaktury = invoiceType.fakturaXlType,
             typFakturPodtyp = 0,
             obliczajSumeWartosciFakturyWg = 0,

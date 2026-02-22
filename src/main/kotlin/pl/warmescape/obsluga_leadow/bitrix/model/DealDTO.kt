@@ -41,6 +41,8 @@ data class DealDTO(
     val assignedById: String? = null,
     @JsonProperty("CONTACT_ID")
     val contactId: String? = null,
+    @JsonProperty("UF_CRM_1771774033335")
+    val seller: String? = null,
 ) {
     fun toDomain() = Deal(
         bruttoPrice = bruttoPrice,
@@ -81,5 +83,10 @@ data class DealDTO(
         realizacjaDo = realizacjaDo?.toLocalDate(),
         assignedById = assignedById?.takeIf { it.isNotBlank() }?.toLong(),
         contactId = contactId?.takeIf { it.isNotBlank() }?.toLong(),
+        seller = when (seller) {
+            "512" -> Seller.STORMEDGE
+            "514" -> Seller.KARAS
+            else -> throw RuntimeException("Nieprawidłowa firma sprzedająca!")
+        },
     )
 }

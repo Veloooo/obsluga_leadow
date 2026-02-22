@@ -7,6 +7,7 @@ spring:
   application:
     name: obsluga-leadow
 fakturaxl:
-  token: ${FAKTURA_XL_TOKEN:?FAKTURA_XL_TOKEN is required}
+  tokenStormedge: ${FAKTURA_XL_TOKEN_STORMEDGE:?FAKTURA_XL_TOKEN_STORMEDGE is required}
+  tokenKaras: ${FAKTURA_XL_TOKEN_KARAS:?FAKTURA_XL_TOKEN_KARAS is required}
 bitrix:
   url: ${BITRIX_URL:? BITRIX_TOKEN is required}

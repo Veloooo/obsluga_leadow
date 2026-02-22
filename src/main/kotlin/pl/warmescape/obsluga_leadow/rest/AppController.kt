@@ -69,6 +69,8 @@ class DealWebhookController(
                 identifierOnDeal?.let {
                     put("UF_CRM_1768061569390", it)
                 }
+
+                put("UF_CRM_1771775169946", deal.seller.description)
             }
             bitrixDealService.updateDealFields(
                 dealId,
