@@ -187,7 +187,10 @@ class FakturaXlConnector {
                 ClientType.FIRMA -> null
                 ClientType.OSOBA_PRYWATNA -> deal.fullName
             },
-            idDzialyFirmy = 195121,
+            idDzialyFirmy = when (deal.seller) {
+                Seller.STORMEDGE -> 195121
+                Seller.KARAS -> 222993
+            },
             wyslijDokumentDoKlientaEmailem = 0,
             obliczajWartoscFakturyOd = 0,
             pozycje = positions,
