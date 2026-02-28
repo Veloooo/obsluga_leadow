@@ -170,7 +170,7 @@ class FakturaXlConnector {
         }
         return Dokument(
             apiToken = token,
-            typFaktury = if (deal.seller == Seller.KARAS) 7 else invoiceType.fakturaXlType,
+            typFaktury = if (deal.seller == Seller.KARAS) 6 else invoiceType.fakturaXlType,
             typFakturPodtyp = 0,
             obliczajSumeWartosciFakturyWg = 0,
             dataWystawienia = LocalDate.now().toString(),
