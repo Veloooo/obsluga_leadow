@@ -4,4 +4,6 @@ enum class FinancingType {
     RATY_0,
     GOTOWKA,
     PRZELEW,
+    KREDYT_PRZELEW,
+    RATY_04,
 }

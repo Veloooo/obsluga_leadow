@@ -13,7 +13,8 @@ enum class BaliaColor(val id: Int, val label: String, compatibility: String) {
     SOLIDLY_PEARL(486, "Solidly Pearl", "niecka akrylowa"),
     BIALY_METALIK(420, "Biały metalik", "niecka okrągła"),
     SZARY_METALIK(422, "Szary metalik", "niecka okrągła"),
-    BEZOWY_METALIK(424, "Beżowy metalik", "niecka okrągła");
+    BEZOWY_METALIK(424, "Beżowy metalik", "niecka okrągła"),
+    GRAFIT_BROKAT(532, "Grafit brokat", "niecka akrylowa, niecka kwadratowa");
 
     val value: String?
     private val compatibility: String?

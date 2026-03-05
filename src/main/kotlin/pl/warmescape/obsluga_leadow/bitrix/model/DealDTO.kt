@@ -70,6 +70,8 @@ data class DealDTO(
             "104" -> FinancingType.RATY_0
             "106" -> FinancingType.GOTOWKA
             "108" -> FinancingType.PRZELEW
+            "506" -> FinancingType.KREDYT_PRZELEW
+            "516" -> FinancingType.RATY_04
             else -> throw RuntimeException("Nieprawidłowy typ finansowania!")
         },
         firstPayment = firstPayment
@@ -83,10 +85,11 @@ data class DealDTO(
         realizacjaDo = realizacjaDo?.toLocalDate(),
         assignedById = assignedById?.takeIf { it.isNotBlank() }?.toLong(),
         contactId = contactId?.takeIf { it.isNotBlank() }?.toLong(),
-        seller = when (seller) {
+        seller = when (seller?.takeIf { it.isNotBlank() }) {
             "512" -> Seller.STORMEDGE
             "514" -> Seller.KARAS
-            else -> throw RuntimeException("Nieprawidłowa firma sprzedająca!")
+            null -> throw RuntimeException("Brak wybranej firmy sprzedającej!")
+            else -> throw RuntimeException("Nieznana firma sprzedająca (ID: $seller)")
         },
     )
 }
